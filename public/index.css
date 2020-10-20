@@ -151,7 +151,7 @@ nav ul li a {
     display: none;
 }
 
-@media (max-width: 952px) {
+@media only screen and (min-width: 1302px) {
     label.logo {
         font-size: 30px;
         padding-left: 50px;
@@ -161,7 +161,7 @@ nav ul li a {
     }
 }
 
-@media (max-width: 858px) {
+@media only screen and (max-width: 1300px) {
     .checkbtn {
         display: block;
     }
@@ -190,6 +190,12 @@ nav ul li a {
     }
     #check:checked~ul {
         left: 0;
+    }
+    .carousel-inner {
+        height: 262px !important;
+    }
+    .jumbo1 {
+        margin: 10vmin 2vmin;
     }
 }
 
