@@ -1,4 +1,4 @@
-# FinalWebTechProj
+# FinalWebTechProj - NGO Website
 
 
 A NGO WEBSITE
