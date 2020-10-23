@@ -12,14 +12,15 @@ const dbURI = 'mongodb+srv://netninja:test1234@nodetuts.2rvjc.mongodb.net/node-t
 
 
 //online connection
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(result => app.listen(3000))
-    .catch(err => console.log(err));
+// mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+//     .then(result => app.listen(3000))
+//     .catch(err => console.log(err));
 
 
 
 
 //offline connection
+app.listen(3000);
 mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
@@ -80,7 +81,32 @@ app.post('/sign_up', function(req, res) {
 
 
     return res.redirect('/signup_success');
-})
+});
+
+app.post('/payments', function(req, res){
+  var name = req.body.name;
+  var email = req.body.email;
+  var amount = req.body.amount;
+  var phone = req.body.phone;
+
+  var data = {
+      "name": name,
+      "email": email,
+      "amount": amount,
+      "phone":phone
+
+  }
+  db.collection('payment').insertOne(data, function(err, collection) {
+      if (err) throw err;
+      console.log("Record inserted Successfully");
+
+  });
+
+
+
+  return res.redirect('/payment_success');
+
+});
 
 
 app.get('/index', (req, res) => {
@@ -110,6 +136,10 @@ app.get('/weather', (req, res) => {
 app.get('/payment', (req, res) => {
     res.render('./frontend/payment', { title: 'Payment' });
 });
+
+app.get('/payment_success', (req, res)=> {
+  res.render('./frontend/payment_success', {title: 'payment_success'})
+})
 
 app.get('/moreinfo', (req, res) => {
     res.render('./frontend/moreinfo', { title: 'Info' });
